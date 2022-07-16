@@ -32,12 +32,6 @@ public partial class MainWindow
         base.OnInitialized(e);
 
         var args = Environment.GetCommandLineArgs();
-        Parser.Default.ParseArguments<Options>(args)
-            .WithParsed(o =>
-            {
-                RefreshContentEnabled = o.EnableAutomaticContentRefresh;
-                RefreshContentIntervalInSeconds = Math.Max(Math.Min(o.ContentRefreshIntervalInSeconds, 3600), 10);
-            });
             
         SetButtonStates();
     }
@@ -68,9 +62,6 @@ public partial class MainWindow
             await WebView.EnsureCoreWebView2Async(environment);
                 
             WebView.Source = new UriBuilder(url).Uri;
-                
-            if(RefreshContentEnabled)
-                StartAutomaticContentRefresh();
         }
         catch (Exception)
         {
@@ -78,12 +69,6 @@ public partial class MainWindow
         }
     }
 
-    private void StartAutomaticContentRefresh()
-    {
-        _refreshContentTimer.Tick += (_, _) => WebView.Reload();
-        _refreshContentTimer.Interval = TimeSpan.FromSeconds(RefreshContentIntervalInSeconds);
-        _refreshContentTimer.Start();
-    }
 
     private void CloseWindow()
     {
@@ -122,13 +107,4 @@ public partial class MainWindow
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
     private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Close();
-}
-    
-public class Options
-{       
-    [Option('r', "enable-content-refresh", Required = false, Default = false, HelpText = "(default: 60 seconds) Enable automatic refresh of content")]
-    public bool EnableAutomaticContentRefresh { get; set; }
-        
-    [Option("content-refresh-interval", Required = false, Default = 60, HelpText = "(min: 10, max: 3600) Content refresh interval in seconds")]
-    public int ContentRefreshIntervalInSeconds { get; set; }
 }
