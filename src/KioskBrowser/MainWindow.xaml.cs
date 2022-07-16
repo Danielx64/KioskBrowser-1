@@ -2,8 +2,6 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
-using CommandLine;
 using KioskBrowser.WebView;
 using Microsoft.Web.WebView2.Core;
 
@@ -11,7 +9,6 @@ namespace KioskBrowser;
 
 public partial class MainWindow
 {
-    private readonly DispatcherTimer _refreshContentTimer = new();
     private readonly WebViewComponent _webViewComponent;
 
     public MainWindow()
