@@ -21,8 +21,6 @@ public partial class MainWindow
     }
 
     private static string CacheFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "KioskBrowser");
-    private bool RefreshContentEnabled { get; set; }
-    private double RefreshContentIntervalInSeconds { get; set; }
 
     protected override void OnInitialized(EventArgs e)
     {
