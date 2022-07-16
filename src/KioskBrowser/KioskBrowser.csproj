@@ -8,13 +8,13 @@
     <AssemblyTitle>Kiosk Browser</AssemblyTitle>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors/>
+    <TreatWarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.0.4" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.664.37" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1245.22" />
   </ItemGroup>
 
   <ItemGroup>
