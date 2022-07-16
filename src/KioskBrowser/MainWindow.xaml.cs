@@ -57,8 +57,7 @@ public partial class MainWindow
             
         var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
 
-        WebView.Loaded += async (sender, e) =>
-        {
+
             await WebView.EnsureCoreWebView2Async(environment).ConfigureAwait(true);
             WebView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
             WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;
@@ -70,7 +69,7 @@ public partial class MainWindow
             WebView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
             WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
             WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
-        };
+       
         var args = "";
         if (Environment.GetCommandLineArgs().Length > 1)
         {
@@ -78,27 +77,27 @@ public partial class MainWindow
             //Add code to check for gpu pram
             if (args.StartsWith("gpu"))
             {
-                this.WebView.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+                WebView.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
                 return;
             }
             else
             {
-                this.WebView.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+                WebView.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
                 return;
             }
             return;
         }
         else
         {
-            this.WebView.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
+            WebView.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
         }
     }
 
 
     private void CloseWindow()
     {
-        if( Titlebar.Visibility != Visibility.Visible)
-            Application.Current.Shutdown();
+        WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+        Application.Current.Shutdown();
     }
 
     private void Shutdown(string caption, string message)
@@ -131,6 +130,6 @@ public partial class MainWindow
     private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e) =>
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
-    private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Close();
+    private void OnCloseButtonClick(object sender, RoutedEventArgs e) => CloseWindow();
 
 }
