@@ -55,7 +55,22 @@ public partial class MainWindow
             return;
             
         var args = Environment.GetCommandLineArgs();
+        var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
 
+        WebView.Loaded += async (sender, e) =>
+        {
+            await WebView.EnsureCoreWebView2Async(environment).ConfigureAwait(true);
+            WebView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            WebView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            WebView.CoreWebView2.Settings.UserAgent = $"{Globals.APP_USERAGENT}";
+            WebView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+            WebView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            WebView.CoreWebView2.Settings.IsWebMessageEnabled = false;
+            WebView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
+            WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
+        };
         if (args.Length < 2)
         {
             Shutdown("Information","No parameters. Browser window will close.");
@@ -65,9 +80,6 @@ public partial class MainWindow
 
         try
         {
-            var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
-            await WebView.EnsureCoreWebView2Async(environment);
-                
             WebView.Source = new UriBuilder(url).Uri;
         }
         catch (Exception)
@@ -114,4 +126,5 @@ public partial class MainWindow
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
     private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Close();
+
 }
