@@ -19,6 +19,7 @@ public partial class MainWindow
         public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
         public static readonly String APP_USERAGENT = "Your useragent here";
         public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
+        public static readonly String APP_REQUEST_LANG = "en-AU";
         public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
     }
 
@@ -30,8 +31,6 @@ public partial class MainWindow
         
         DataContext =  new MainViewModel(_webViewComponent, CloseWindow);
     }
-
-    private static string CacheFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "KioskBrowser");
 
     protected override void OnInitialized(EventArgs e)
     {
@@ -46,10 +45,12 @@ public partial class MainWindow
     {
         base.OnContentRendered(e);
 
-        KeyDown += (_, eventArgs) => {
-            if (eventArgs.Key == Key.Escape && Titlebar.Visibility != Visibility.Visible)
-                CloseWindow(); };
-            
+        var options = new CoreWebView2EnvironmentOptions
+        {
+            AllowSingleSignOnUsingOSPrimaryAccount = true,
+            Language = $"{Globals.APP_REQUEST_LANG}"
+        };
+
         if (!_webViewComponent.IsInstalled)
             return;
             
@@ -64,7 +65,7 @@ public partial class MainWindow
 
         try
         {
-            var environment = await CoreWebView2Environment.CreateAsync(null, CacheFolderPath);
+            var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
             await WebView.EnsureCoreWebView2Async(environment);
                 
             WebView.Source = new UriBuilder(url).Uri;
