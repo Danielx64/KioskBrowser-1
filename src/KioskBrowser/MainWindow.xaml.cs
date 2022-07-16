@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using KioskBrowser.WebView;
@@ -54,7 +55,6 @@ public partial class MainWindow
         if (!_webViewComponent.IsInstalled)
             return;
             
-        var args = Environment.GetCommandLineArgs();
         var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
 
         WebView.Loaded += async (sender, e) =>
@@ -71,20 +71,26 @@ public partial class MainWindow
             WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
             WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
         };
-        if (args.Length < 2)
+        var args = "";
+        if (Environment.GetCommandLineArgs().Length > 1)
         {
-            Shutdown("Information","No parameters. Browser window will close.");
+            args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+            //Add code to check for gpu pram
+            if (args.StartsWith("gpu"))
+            {
+                this.WebView.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+                return;
+            }
+            else
+            {
+                this.WebView.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+                return;
+            }
             return;
         }
-        var url = args[1];
-
-        try
+        else
         {
-            WebView.Source = new UriBuilder(url).Uri;
-        }
-        catch (Exception)
-        {
-            Shutdown("Error Occurred", "An error occurred when starting the browser. Browser window will close.");
+            this.WebView.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
         }
     }
 
