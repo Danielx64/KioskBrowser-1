@@ -35,9 +35,6 @@ public partial class MainWindow
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed(o =>
             {
-                if (!o.EnableTitlebar)
-                    Titlebar.Visibility = Visibility.Collapsed;
-
                 RefreshContentEnabled = o.EnableAutomaticContentRefresh;
                 RefreshContentIntervalInSeconds = Math.Max(Math.Min(o.ContentRefreshIntervalInSeconds, 3600), 10);
             });
@@ -128,11 +125,7 @@ public partial class MainWindow
 }
     
 public class Options
-{
-
-    [Option('t', "enable-titlebar", Required = false, Default = false, HelpText = "Enable Title bar")]
-    public bool EnableTitlebar { get; set; }
-        
+{       
     [Option('r', "enable-content-refresh", Required = false, Default = false, HelpText = "(default: 60 seconds) Enable automatic refresh of content")]
     public bool EnableAutomaticContentRefresh { get; set; }
         
