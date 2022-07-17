@@ -11,15 +11,11 @@
         WindowStartupLocation="CenterScreen"
         Foreground="WhiteSmoke"
         Background="#323232">
-    
+
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
-    
-    <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding Path=CloseWindowCommand}" />
-    </Window.InputBindings>
-    
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
         <SolidColorBrush x:Key="WindowBrush" Color="Black" />
