@@ -100,7 +100,7 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-        WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
@@ -174,8 +174,8 @@ public partial class MainWindow
 		//watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
 	}
 
-    private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
-    {
+	private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
+	{
 		CloseWindow();
 	}
 }
