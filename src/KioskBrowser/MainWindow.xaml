@@ -10,7 +10,7 @@
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Foreground="WhiteSmoke"
-        Background="#323232">
+        Background="#323232" Closing="Exit_App">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />

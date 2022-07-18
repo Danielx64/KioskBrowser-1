@@ -91,7 +91,6 @@ public partial class MainWindow
 		AttachControlEventHandlers();
 	}
 
-
 	protected override async void OnContentRendered(EventArgs e)
 	{
 		base.OnContentRendered(e);
@@ -101,7 +100,9 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+        WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		var milliseconds = 100;
+		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
 	}
 
@@ -142,10 +143,12 @@ public partial class MainWindow
 	{
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
+		
 		if (e.ChangeType != WatcherChangeTypes.Changed)
 		{
 			return;
 		}
+		MessageBox.Show("test");
 		string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 		using (StreamReader inputFile = new(filePath))
 		{
@@ -158,9 +161,6 @@ public partial class MainWindow
 				WebView.Source = new Uri($"{Globals.BASE_URL}" + inputFile.ReadToEnd());
 			}
 		}
-		MessageBox.Show("test");
-		this.Focus();
-		this.Activate();
 	}
 	void AttachControlEventHandlers()
 	{
@@ -172,5 +172,10 @@ public partial class MainWindow
 		watcher.IncludeSubdirectories = false;
 		watcher.EnableRaisingEvents = true;
 		//watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
+	}
+
+    private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+		CloseWindow();
 	}
 }
