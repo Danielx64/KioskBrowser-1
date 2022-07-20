@@ -154,13 +154,13 @@ public partial class MainWindow
 		string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 		using (StreamReader inputFile = new(filePath))
 		{
-			if (inputFile.ReadToEnd().StartsWith("gpu"))
+			if (RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
 			{
 				WebView.Source = new Uri($"edge://gpu", UriKind.Absolute);
 			}
 			else
 			{
-				WebView.Source = new Uri($"{Globals.BASE_URL}" + inputFile.ReadToEnd());
+				WebView.Source = new Uri($"{Globals.BASE_URL}" + RemoveSpecialChars(inputFile.ReadToEnd()));
 			}
 		}
 	}
