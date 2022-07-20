@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Threading;
 
@@ -30,12 +29,11 @@ public partial class App {
 		}
 		else
 		{
-			var args = "";
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
-			args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+			var outString = KioskBrowser.MainWindow.RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
 			using (StreamWriter outputFile = new StreamWriter(filePath))
 			{
-				outputFile.WriteLine(args);
+				outputFile.WriteLine(outString);
 			}
 			Environment.Exit(0);
 		}

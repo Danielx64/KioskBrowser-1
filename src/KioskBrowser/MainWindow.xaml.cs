@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -70,19 +69,19 @@ public partial class MainWindow
 		WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 		WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
 
-		var args = "";
+
 		if (Environment.GetCommandLineArgs().Length > 1)
 		{
-			args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+			var outString = RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
 			//Add code to check for gpu pram
-			if (args.StartsWith("gpu"))
+			if (outString.StartsWith("gpu"))
 			{
 				WebView.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
 				return;
 			}
 			else
 			{
-				WebView.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+				WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString}", System.UriKind.Absolute);
 				return;
 			}
 			return;
