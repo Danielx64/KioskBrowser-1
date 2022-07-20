@@ -84,7 +84,6 @@ public partial class MainWindow
 				WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString}", System.UriKind.Absolute);
 				return;
 			}
-			return;
 		}
 		else
 		{
@@ -98,7 +97,6 @@ public partial class MainWindow
 		base.OnContentRendered(e);
 		startBrowser();
 	}
-
 
 	private void CloseWindow()
 	{
