@@ -51,7 +51,10 @@ public partial class MainWindow
 
 		if (!_webViewComponent.IsInstalled)
 			return;
-
+		if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+		{
+			Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+		}
 		var environment = await CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).ConfigureAwait(true);
 
 
