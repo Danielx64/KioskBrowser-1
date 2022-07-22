@@ -48,8 +48,7 @@ public partial class MainWindow
 			Language = $"{Globals.APP_REQUEST_LANG}"
 		};
 
-		if (!_webViewComponent.IsInstalled)
-			return;
+
 		if (!Directory.Exists(Globals.USER_DATA_FOLDER))
 		{
 			Directory.CreateDirectory(Globals.USER_DATA_FOLDER);

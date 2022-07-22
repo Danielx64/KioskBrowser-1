@@ -15,6 +15,5 @@ public class MainViewModel
 	public DelegateCommand CloseWindowCommand => new(_ => { _close(); });
 
 	public string Title => $"{MainWindow.Globals.APP_NAME}";
-	public bool IsInstalled => _webViewComponent.IsInstalled;
-	public bool IsNotInstalled => !IsInstalled;
+
 }
