@@ -27,7 +27,7 @@ public partial class MainWindow
 	public MainWindow()
 	{
 		InitializeComponent();
-
+		AttachControlEventHandlers();
 		_webViewComponent = new WebViewComponent();
 
 		DataContext = new MainViewModel(_webViewComponent, CloseWindow);
@@ -88,7 +88,7 @@ public partial class MainWindow
 		{
 			WebView.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
 		}
-		AttachControlEventHandlers();
+		
 	}
 
 	protected override async void OnContentRendered(EventArgs e)
@@ -111,10 +111,6 @@ public partial class MainWindow
 		Application.Current.Shutdown();
 	}
 
-	private void Hyperlink_OnClick(object sender, RoutedEventArgs e) =>
-		Process.Start(new ProcessStartInfo {
-			FileName = "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
-			UseShellExecute = true});
 
 	private void OnMinimizeButtonClick(object sender, RoutedEventArgs e) =>
 		WindowState = WindowState.Minimized;
@@ -170,7 +166,7 @@ public partial class MainWindow
 		watcher.Filter = "temp.txt";
 		watcher.IncludeSubdirectories = false;
 		watcher.EnableRaisingEvents = true;
-		//watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
+	//	watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
 	}
 
 	private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
