@@ -206,10 +206,11 @@
 			</Grid>
 			
 			<!-- WebView -->
-			<DockPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Visibility="{Binding IsInstalled, Converter={StaticResource BoolToVisConverter} }">
-				<wpf:WebView2 Name="WebView"/>
+			<DockPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+                <wpf:WebView2 Name="WebView"/>
 			</DockPanel>
 
-		</Grid>
+        </Grid>
 	</Border>
 </Window>
