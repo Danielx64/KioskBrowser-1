@@ -9,7 +9,7 @@ namespace KioskBrowser;
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App {
-	static Mutex mutex = new Mutex(true, $"temp");
+	static Mutex mutex = new Mutex(true, @KioskBrowser.MainWindow.Globals.APP_ID);
 
 	public App()
 	{
