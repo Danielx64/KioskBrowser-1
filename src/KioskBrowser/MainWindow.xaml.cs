@@ -32,7 +32,7 @@ public partial class MainWindow
 
 		DataContext = new MainViewModel(_webViewComponent, CloseWindow);
 	}
-
+	[STAThread]
 	protected override void OnInitialized(EventArgs e)
 	{
 		base.OnInitialized(e);
@@ -93,6 +93,7 @@ public partial class MainWindow
 
 	protected override async void OnContentRendered(EventArgs e)
 	{
+
 		base.OnContentRendered(e);
 		startBrowser();
 	}
@@ -166,7 +167,7 @@ public partial class MainWindow
 		watcher.Filter = "temp.txt";
 		watcher.IncludeSubdirectories = false;
 		watcher.EnableRaisingEvents = true;
-	//	watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
+		//watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
 	}
 
 	private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
