@@ -36,10 +36,6 @@ public partial class MainWindow
 	protected override void OnInitialized(EventArgs e)
 	{
 		base.OnInitialized(e);
-
-		var args = Environment.GetCommandLineArgs();
-
-		SetButtonStates();
 	}
 	private async void startBrowser(){
 		var options = new CoreWebView2EnvironmentOptions
@@ -88,7 +84,6 @@ public partial class MainWindow
 		{
 			WebView.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
 		}
-		
 	}
 
 	protected override async void OnContentRendered(EventArgs e)
@@ -112,25 +107,6 @@ public partial class MainWindow
 		Application.Current.Shutdown();
 	}
 
-
-	private void OnMinimizeButtonClick(object sender, RoutedEventArgs e) =>
-		WindowState = WindowState.Minimized;
-
-	protected override void OnStateChanged(EventArgs e)
-	{
-		base.OnStateChanged(e);
-
-		SetButtonStates();
-	}
-
-	private void SetButtonStates()
-	{
-	//	restoreButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Visible : Visibility.Collapsed;
-	//	maximizeButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Collapsed : Visibility.Visible;
-	}
-
-	private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e) =>
-		WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
 	private void OnCloseButtonClick(object sender, RoutedEventArgs e) => CloseWindow();
 
