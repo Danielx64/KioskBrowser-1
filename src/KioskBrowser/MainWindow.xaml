@@ -7,29 +7,29 @@
 		mc:Ignorable="d"
 		Title="{Binding Title}" Height="450" Width="800"
 		WindowStyle="SingleBorderWindow"
-		WindowState="Normal"
+		WindowState="Maximized"
 		WindowStartupLocation="CenterScreen"
 		Foreground="WhiteSmoke"
-		Background="#323232" Closing="Exit_App">
+		Background="#323232" Closing="Exit_App" Icon="{Binding app_icon}">
 
 
 
 	<Window.TaskbarItemInfo>
-        <TaskbarItemInfo Overlay="/Images/globe.png" Description="{Binding Title}" />
+		<TaskbarItemInfo Overlay="{Binding app_icon}" Description="{Binding Title}" />
 	</Window.TaskbarItemInfo>
 	
 	<Border>
 		<Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/> <!-- WebView -->
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/> <!-- WebView -->
 			</Grid.RowDefinitions>
 
-            <!-- WebView -->
+			<!-- WebView -->
 			<DockPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-                <wpf:WebView2 Name="WebView"/>
+				<wpf:WebView2 Name="WebView"/>
 			</DockPanel>
 
-        </Grid>
+		</Grid>
 	</Border>
 </Window>

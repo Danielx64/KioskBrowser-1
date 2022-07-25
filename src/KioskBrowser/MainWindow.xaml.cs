@@ -15,6 +15,7 @@ public partial class MainWindow
 	public static class Globals
 	{
 		public static readonly String APP_ID = "your app id"; // Unmodifiable
+		public static readonly String APP_ICON = "/Images/globe.png"; // Unmodifiable
 		public static readonly String APP_FOLDER_NAME = "your app folder name"; // Unmodifiable
 		public static readonly String APP_NAME = "your app name"; // Unmodifiable
 		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable

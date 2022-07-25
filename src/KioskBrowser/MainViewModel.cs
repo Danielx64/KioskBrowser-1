@@ -15,5 +15,6 @@ public class MainViewModel
 	public DelegateCommand CloseWindowCommand => new(_ => { _close(); });
 
 	public string Title => $"{MainWindow.Globals.APP_NAME}";
+	public string app_icon => $"{MainWindow.Globals.APP_ICON}";
 
 }
