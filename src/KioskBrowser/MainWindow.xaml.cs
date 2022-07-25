@@ -97,18 +97,12 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		//WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
 	}
-
-	private void Shutdown(string caption, string message)
-	{
-		MessageBox.Show(this, message, caption);
-		Application.Current.Shutdown();
-	}
-
 
 	private void OnCloseButtonClick(object sender, RoutedEventArgs e) => CloseWindow();
 
@@ -148,7 +142,6 @@ public partial class MainWindow
 		watcher.Filter = "temp.txt";
 		watcher.IncludeSubdirectories = false;
 		watcher.EnableRaisingEvents = true;
-		//watcher.SynchronizingObject = (System.ComponentModel.ISynchronizeInvoke?)this;
 	}
 
 	private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
