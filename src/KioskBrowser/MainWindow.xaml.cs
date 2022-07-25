@@ -116,11 +116,13 @@ public partial class MainWindow
 	{
 		Dispatcher.Invoke(() =>
 		{
+			var milliseconds = 100;
+			Thread.Sleep(milliseconds);
 			if (e.ChangeType != WatcherChangeTypes.Changed)
 			{
 				return;
 			}
-			MessageBox.Show("test");
+
 			string filePath = @MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
 			using (StreamReader inputFile = new(filePath))
 			{
@@ -135,7 +137,7 @@ public partial class MainWindow
 			}
 		});
 	}
-	public void AttachControlEventHandlers()
+	void AttachControlEventHandlers()
 	{
 		FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
 		var watcher = fileSystemWatcher;
