@@ -135,7 +135,7 @@ public partial class MainWindow
 			}
 		});
 	}
-	void AttachControlEventHandlers()
+	public void AttachControlEventHandlers()
 	{
 		FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
 		var watcher = fileSystemWatcher;
