@@ -111,28 +111,28 @@ public partial class MainWindow
 	private void OnCloseButtonClick(object sender, RoutedEventArgs e) => CloseWindow();
 
 
-	private void OnChanged(object sender, FileSystemEventArgs e)
+	void OnChanged(Object sender, FileSystemEventArgs e)
 	{
-		var milliseconds = 100;
-		Thread.Sleep(milliseconds);
-		
-		if (e.ChangeType != WatcherChangeTypes.Changed)
+		Dispatcher.Invoke(() =>
 		{
-			return;
-		}
-		MessageBox.Show("test");
-		string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
-		using (StreamReader inputFile = new(filePath))
-		{
-			if (RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
+			if (e.ChangeType != WatcherChangeTypes.Changed)
 			{
-				WebView.Source = new Uri($"edge://gpu", UriKind.Absolute);
+				return;
 			}
-			else
+			MessageBox.Show("test");
+			string filePath = @MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
+			using (StreamReader inputFile = new(filePath))
 			{
-				WebView.Source = new Uri($"{Globals.BASE_URL}" + RemoveSpecialChars(inputFile.ReadToEnd()));
+				if (MainWindow.RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
+				{
+					WebView.Source = new Uri($"edge://gpu", UriKind.Absolute);
+				}
+				else
+				{
+					WebView.Source = new Uri($"{Globals.BASE_URL}" + RemoveSpecialChars(inputFile.ReadToEnd()));
+				}
 			}
-		}
+		});
 	}
 	void AttachControlEventHandlers()
 	{
