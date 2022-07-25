@@ -125,8 +125,8 @@ public partial class MainWindow
 
 	private void SetButtonStates()
 	{
-		restoreButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Visible : Visibility.Collapsed;
-		maximizeButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Collapsed : Visibility.Visible;
+	//	restoreButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Visible : Visibility.Collapsed;
+	//	maximizeButton.Visibility = WindowState == WindowState.Maximized ? Visibility.Collapsed : Visibility.Visible;
 	}
 
 	private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e) =>
