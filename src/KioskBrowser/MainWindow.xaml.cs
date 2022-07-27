@@ -135,6 +135,10 @@ public partial class MainWindow
 	}
 	public void AttachControlEventHandlers()
 	{
+		if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+		{
+			Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+		}
 		FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
 		var watcher = fileSystemWatcher;
 		watcher.NotifyFilter = NotifyFilters.LastWrite;
