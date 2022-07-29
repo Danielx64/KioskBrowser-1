@@ -65,7 +65,7 @@ public partial class MainWindow
 		WebView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
 		WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 		WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
-
+		WebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
 
 		if (Environment.GetCommandLineArgs().Length > 1)
 		{
@@ -168,5 +168,9 @@ public partial class MainWindow
 		}
 		str = str.Replace($"{Globals.URI_SCHEMA}", "");
 		return str;
+	}
+	private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+	{
+		e.NewWindow = WebView.CoreWebView2;
 	}
 }
