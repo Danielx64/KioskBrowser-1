@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using KioskBrowser.WebView;
 using Microsoft.Web.WebView2.Core;
@@ -65,7 +66,7 @@ public partial class MainWindow
 		WebView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
 		WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 		WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
-		WebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+		WebView.CoreWebView2.NewWindowRequested += OnNewWindowRequested;
 
 		if (Environment.GetCommandLineArgs().Length > 1)
 		{
@@ -169,8 +170,17 @@ public partial class MainWindow
 		str = str.Replace($"{Globals.URI_SCHEMA}", "");
 		return str;
 	}
-	private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
-	{
-		e.NewWindow = WebView.CoreWebView2;
+
+    private void OnNewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+    {
+		if (e.Uri.Contains("admin"))
+		{
+
+			e.Handled = false;
+		}
+		else
+		{
+			e.NewWindow = WebView.CoreWebView2;
+		}
 	}
 }
