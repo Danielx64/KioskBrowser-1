@@ -171,8 +171,8 @@ public partial class MainWindow
 		return str;
 	}
 
-    private void OnNewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
-    {
+	private void OnNewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+	{
 		if (e.Uri.Contains("admin"))
 		{
 
