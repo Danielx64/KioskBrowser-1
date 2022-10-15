@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>v4.7.2</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\app.ico</ApplicationIcon>
     <AssemblyTitle>Kiosk Browser</AssemblyTitle>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
     <TreatWarningsAsErrors />
   </PropertyGroup>
 
