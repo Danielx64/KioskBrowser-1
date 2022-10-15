@@ -12,7 +12,7 @@ public class MainViewModel
 		_webViewComponent = webViewComponent;
 		_close = close;
 	}
-	public DelegateCommand CloseWindowCommand => new(_ => { _close(); });
+	//public DelegateCommand CloseWindowCommand => new(_ => { _close(); });
 
 	public string Title => $"{MainWindow.Globals.APP_NAME}";
 	public string app_icon => $"{MainWindow.Globals.APP_ICON}";
