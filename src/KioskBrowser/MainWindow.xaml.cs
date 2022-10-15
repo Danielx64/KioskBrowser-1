@@ -66,7 +66,7 @@ public partial class MainWindow
 		WebView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
 		WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 		WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
-		WebView.CoreWebView2.NewWindowRequested += OnNewWindowRequested;
+		WebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
 
 		if (Environment.GetCommandLineArgs().Length > 1)
 		{
@@ -171,16 +171,16 @@ public partial class MainWindow
 		return str;
 	}
 
-	private void OnNewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
-	{
-		if (e.Uri.Contains("admin"))
-		{
+    private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+    {
+        if (e.Uri.Contains("msteams"))
+        {
 
-			e.Handled = false;
-		}
-		else
-		{
-			e.NewWindow = WebView.CoreWebView2;
-		}
-	}
+            e.Handled = false;
+        }
+        else
+        {
+            e.NewWindow = WebView.CoreWebView2;
+        }
+    }
 }
