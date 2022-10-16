@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Threading;
 using Microsoft.Web.WebView2.Core;
+using static KioskBrowser.MainWindow;
 
 namespace KioskBrowser;
 
@@ -17,6 +18,10 @@ public partial class App {
 		{
 			try
 			{
+				if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+				{
+					Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+				}
 				try
 				{
 					var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
@@ -37,6 +42,10 @@ public partial class App {
 		}
 		else
 		{
+			if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+			{
+				Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+			}
 			string filePath = @KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
 			var outString = KioskBrowser.MainWindow.RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
 			using (StreamWriter outputFile = new StreamWriter(filePath))

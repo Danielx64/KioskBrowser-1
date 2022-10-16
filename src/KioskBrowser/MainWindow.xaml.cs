@@ -29,6 +29,10 @@ public partial class MainWindow
 
 	public MainWindow()
 	{
+		if (!Directory.Exists(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER))
+		{
+			Directory.CreateDirectory(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER);
+		}
 		InitializeComponent();
 		AttachControlEventHandlers();
 		_webViewComponent = new WebViewComponent();
@@ -171,16 +175,16 @@ public partial class MainWindow
 		return str;
 	}
 
-    private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
-    {
-        if (e.Uri.Contains("msteams"))
-        {
+	private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+	{
+		if (e.Uri.Contains("msteams"))
+		{
 
-            e.Handled = false;
-        }
-        else
-        {
-            e.NewWindow = WebView.CoreWebView2;
-        }
-    }
+			e.Handled = false;
+		}
+		else
+		{
+			e.NewWindow = WebView.CoreWebView2;
+		}
+	}
 }
