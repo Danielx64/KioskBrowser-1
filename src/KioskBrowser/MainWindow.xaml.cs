@@ -102,8 +102,8 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-		//WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
-		WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
+		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		//WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
@@ -161,7 +161,7 @@ public partial class MainWindow
 	public static string RemoveSpecialChars(string str)
 	{
 		// Create  a string array and add the special characters you want to remove
-		string[] chars = new string[] {"~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",", "\\" };
+		string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",", "\\" };
 
 		//Iterate the number of times based on the String array length.
 		for (int i = 0; i < chars.Length; i++)
