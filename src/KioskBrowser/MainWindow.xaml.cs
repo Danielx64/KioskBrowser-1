@@ -21,8 +21,8 @@ public partial class MainWindow
 		public static readonly String APP_NAME = "your app name"; // Unmodifiable
 		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
 		public static readonly String APP_USERAGENT = "Your useragent here";
-		public static readonly String URI_SCHEMA = "kioskbrowser";
-		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
+		public static readonly String URI_SCHEMA = "ms-mobile-apps:///providers/Microsoft.PowerApps/apps/";
+        public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
 		public static readonly String APP_REQUEST_LANG = "en-AU";
 		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
 	}
@@ -160,8 +160,10 @@ public partial class MainWindow
 
 	public static string RemoveSpecialChars(string str)
 	{
-		// Create  a string array and add the special characters you want to remove
-		string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",", "\\" };
+
+        str = str.Replace($"{Globals.URI_SCHEMA}", "");
+        // Create  a string array and add the special characters you want to remove
+        string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", ">", "<", "/", ".", ",", "\\" };
 
 		//Iterate the number of times based on the String array length.
 		for (int i = 0; i < chars.Length; i++)
@@ -171,7 +173,7 @@ public partial class MainWindow
 				str = str.Replace(chars[i], "");
 			}
 		}
-		str = str.Replace($"{Globals.URI_SCHEMA}", "");
+
 		return str;
 	}
 
