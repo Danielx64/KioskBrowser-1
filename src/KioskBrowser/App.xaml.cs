@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Threading;
 using Microsoft.Web.WebView2.Core;
-using static KioskBrowser.MainWindow;
 
 namespace KioskBrowser;
 
@@ -18,21 +17,21 @@ public partial class App {
 		{
 			try
 			{
-				if (!Directory.Exists(Globals.USER_DATA_FOLDER))
-				{
-					Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
-				}
 				try
 				{
-					var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+					if (!Directory.Exists(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER))
+					{
+						Directory.CreateDirectory(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER);
+					}
+				//	var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
 					// Do something with `version` if needed.
 				}
 				catch (WebView2RuntimeNotFoundException exception)
 				{
 					// Handle the runtime not being installed.
 					// `exception.Message` is very nicely specific: It (currently at least) says "Couldn't find a compatible Webview2 Runtime installation to host WebViews."
-				MessageBox.Show(exception.Message);
-				Environment.Exit(0);
+					MessageBox.Show(exception.Message);
+					Environment.Exit(0);
 				}
 			}
 			finally
@@ -42,9 +41,9 @@ public partial class App {
 		}
 		else
 		{
-			if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+			if (!Directory.Exists(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER))
 			{
-				Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+				Directory.CreateDirectory(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER);
 			}
 			string filePath = @KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
 			var outString = KioskBrowser.MainWindow.RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
