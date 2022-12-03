@@ -3,13 +3,15 @@ using System.Windows;
 using System.Threading;
 using Microsoft.Web.WebView2.Core;
 
+
+
 namespace KioskBrowser;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App {
-	static Mutex mutex = new Mutex(true, @KioskBrowser.MainWindow.Globals.APP_ID);
+	static Mutex mutex = new Mutex(true, @KioskBrowser.MainWindow.Globals.TENANT_ID);
 
 	public App()
 	{
@@ -23,7 +25,7 @@ public partial class App {
 					{
 						Directory.CreateDirectory(@KioskBrowser.MainWindow.Globals.USER_DATA_FOLDER);
 					}
-				//	var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+					var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
 					// Do something with `version` if needed.
 				}
 				catch (WebView2RuntimeNotFoundException exception)
