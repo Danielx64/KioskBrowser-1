@@ -102,8 +102,8 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
-		//WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
+        //WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+        WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
