@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,7 +23,7 @@ public partial class MainWindow
 		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
 		public static readonly String APP_USERAGENT = "Your useragent here";
 		public static readonly String URI_SCHEMA = "ms-mobile-apps:///providers/Microsoft.PowerApps/apps/";
-        public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
+		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true"; // Unmodifiable
 		public static readonly String APP_REQUEST_LANG = "en-AU";
 		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
 	}
@@ -83,8 +84,9 @@ public partial class MainWindow
 			}
 			else
 			{
-				WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString}", System.UriKind.Absolute);
-				return;
+				WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString}&source=iframe&hidenavbar=true", System.UriKind.Absolute);
+
+                return;
 			}
 		}
 		else
@@ -102,8 +104,8 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-        //WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
-        WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
+		//WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
 		Application.Current.Shutdown();
@@ -127,13 +129,17 @@ public partial class MainWindow
 			string filePath = @MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
 			using (StreamReader inputFile = new(filePath))
 			{
-				if (MainWindow.RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
+				var outString = Regex.Replace(inputFile.ReadToEnd(), @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
+				var outString1 = MainWindow.RemoveSpecialChars(outString);
+
+				//Add code to check for gpu pram
+				if (outString1.StartsWith("gpu"))
 				{
-					WebView.Source = new Uri($"edge://gpu", UriKind.Absolute);
+					WebView.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
 				}
 				else
 				{
-					WebView.Source = new Uri($"{Globals.BASE_URL}" + RemoveSpecialChars(inputFile.ReadToEnd()));
+					WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString1}&source=iframe&hidenavbar=true", System.UriKind.Absolute);
 				}
 			}
 		});
@@ -161,9 +167,9 @@ public partial class MainWindow
 	public static string RemoveSpecialChars(string str)
 	{
 
-        str = str.Replace($"{Globals.URI_SCHEMA}", "");
-        // Create  a string array and add the special characters you want to remove
-        string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", ">", "<", "/", ".", ",", "\\" };
+		str = str.Replace($"{Globals.URI_SCHEMA}", "");
+		// Create  a string array and add the special characters you want to remove
+		string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "}", "{", "]", "[", "|", "\"", ":", "'", ":", ">", "<", "/", ".", ",", "\\" };
 
 		//Iterate the number of times based on the String array length.
 		for (int i = 0; i < chars.Length; i++)
