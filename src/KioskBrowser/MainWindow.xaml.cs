@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using KioskBrowser.WebView;
 using Microsoft.Web.WebView2.Core;
 

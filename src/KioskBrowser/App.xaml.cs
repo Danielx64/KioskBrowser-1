@@ -3,8 +3,6 @@ using System.Windows;
 using System.Threading;
 using Microsoft.Web.WebView2.Core;
 
-
-
 namespace KioskBrowser;
 
 /// <summary>
