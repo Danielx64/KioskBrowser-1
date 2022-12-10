@@ -86,7 +86,7 @@ public partial class MainWindow
 			{
 				WebView.Source = new System.Uri($"{Globals.BASE_URL}{outString}&source=iframe&hidenavbar=true", System.UriKind.Absolute);
 
-                return;
+				return;
 			}
 		}
 		else
@@ -104,10 +104,44 @@ public partial class MainWindow
 
 	private void CloseWindow()
 	{
-		//WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+		WebView.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 		WebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
+		WebView.Dispose();
 		var milliseconds = 100;
 		Thread.Sleep(milliseconds);
+		DirectoryInfo directory = new DirectoryInfo(Globals.USER_DATA_FOLDER);
+
+		foreach (FileInfo file in directory.EnumerateFiles())
+		{
+			try
+			{
+				file.Delete();
+			}
+			catch (IOException)
+			{
+				return;
+			}
+			catch (UnauthorizedAccessException)
+			{
+				return;
+			}
+		}
+
+		foreach (DirectoryInfo dir in directory.EnumerateDirectories())
+		{
+			try
+			{
+				dir.Delete(true);
+			}
+			catch (IOException)
+			{
+				return;
+			}
+			catch (UnauthorizedAccessException)
+			{
+				return;
+			}
+		}
 		Application.Current.Shutdown();
 	}
 
