@@ -232,7 +232,17 @@ public partial class MainWindow
 
 	private void Exit_App(object sender, System.ComponentModel.CancelEventArgs e)
 	{
-		CloseWindow();
+
+		MessageBoxResult result = MessageBox.Show("Do you really want to close " + Globals.APP_NAME + "?",
+	"Warning", MessageBoxButton.YesNo, MessageBoxImage.Question);
+		if (result == MessageBoxResult.No)
+		{
+			e.Cancel = true;
+		}
+		if (result == MessageBoxResult.Yes)
+		{
+			CloseWindow();
+		}
 	}
 
 	public static string RemoveSpecialChars(string str)
