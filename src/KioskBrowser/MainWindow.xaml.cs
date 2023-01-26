@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -69,7 +70,46 @@ public partial class MainWindow
 		WebView.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 		WebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
 		WebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-
+		WebView.CoreWebView2.ContextMenuRequested += delegate (object sender, CoreWebView2ContextMenuRequestedEventArgs args)
+		{
+			IList<CoreWebView2ContextMenuItem> menuList = args.MenuItems;
+			CoreWebView2ContextMenuTargetKind context = args.ContextMenuTarget.Kind;
+			if (context == CoreWebView2ContextMenuTargetKind.Audio)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Image)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Page)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					if (menuList[index].Name != "refresh") { menuList.RemoveAt(index); }
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.SelectedText)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					if (menuList[index].Name != "copy" && menuList[index].Name != "paste" && menuList[index].Name != "cut") { menuList.RemoveAt(index); }
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Video)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+		};
 		if (Environment.GetCommandLineArgs().Length > 1)
 		{
 			var outString = RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
