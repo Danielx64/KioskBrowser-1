@@ -266,14 +266,13 @@ public partial class MainWindow
 
 	private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
 	{
-		if (e.Uri.Contains("msteams"))
+		if (e.Uri.Contains("apps.powerapps.com/play/e/"))
 		{
-
-			e.Handled = false;
+			e.NewWindow = WebView.CoreWebView2;
 		}
 		else
 		{
-			e.NewWindow = WebView.CoreWebView2;
+			e.Handled = false;
 		}
 	}
 }
