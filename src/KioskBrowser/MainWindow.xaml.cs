@@ -198,7 +198,7 @@ public partial class MainWindow
 			}
 
 			string filePath = @MainWindow.Globals.USER_DATA_FOLDER + @"\temp.txt";
-			using (StreamReader inputFile = new(filePath))
+			using (StreamReader inputFile = new StreamReader(filePath))
 			{
 				var outString = Regex.Replace(inputFile.ReadToEnd(), @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
 				var outString1 = MainWindow.RemoveSpecialChars(outString);
@@ -221,8 +221,7 @@ public partial class MainWindow
 		{
 			Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
 		}
-		FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
-		var watcher = fileSystemWatcher;
+		var watcher = new FileSystemWatcher($"{Globals.USER_DATA_FOLDER}");
 		watcher.NotifyFilter = NotifyFilters.LastWrite;
 		watcher.Changed += OnChanged;
 		watcher.Filter = "temp.txt";
